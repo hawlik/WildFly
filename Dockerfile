@@ -1,6 +1,6 @@
 FROM openjdk:17
 
-MAINTAINER Jens Piegsa <piegsa@gmail.com>
+MAINTAINER Tomasz Hawliczek <thawliczek@gmail.com>
 
 ENV WILDFLY_VERSION  26.1.0.Final
 ENV WILDFLY_SHA1     1c593ee622556656b3aa842033769efa82878de5
@@ -19,18 +19,18 @@ RUN cd $HOME \
     && rm wildfly-$WILDFLY_VERSION.tar.gz \
     && mkdir $JBOSS_HOME/standalone/data \
     && mkdir $JBOSS_HOME/standalone/log \
-    && groupadd -r wildfly -g 433 \
-    && useradd -u 431 -r -g wildfly -d $JBOSS_HOME -s /bin/false -c "WildFly user" wildfly \
-    && chown wildfly:wildfly $JAVA_HOME/lib/security/cacerts \
+    && groupadd -r jboss -g 433 \
+    && useradd -u 431 -r -g jboss -d $JBOSS_HOME -s /bin/false -c "WildFly user" jboss \
+    && chown jboss:jboss $JAVA_HOME/lib/security/cacerts \
     && chmod +x /create_wildfly_admin_user.sh /run.sh \
-    && chown -R wildfly:wildfly $JBOSS_HOME/
+    && chown -R jboss:jboss $JBOSS_HOME/
 
 # Ensure signals are forwarded to the JVM process correctly for graceful shutdown
 ENV LAUNCH_JBOSS_IN_BACKGROUND true
 
 EXPOSE 8080 9990 8443 9993 5005
 
-USER wildfly
+USER jboss
 
 RUN ls -Ralph $JBOSS_HOME/standalone
 
