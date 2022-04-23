@@ -32,11 +32,6 @@ EXPOSE 8080 9990 8443 9993 5005
 
 USER wildfly
 
-VOLUME $JBOSS_HOME/standalone/configuration
-VOLUME $JBOSS_HOME/standalone/data
-VOLUME $JBOSS_HOME/standalone/tmp
-VOLUME $JBOSS_HOME/standalone/log
-
 RUN ls -Ralph $JBOSS_HOME/standalone
 
 CMD ["/run.sh"]
