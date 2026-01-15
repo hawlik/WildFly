@@ -19,6 +19,8 @@ RUN cd $HOME \
     && rm wildfly-$WILDFLY_VERSION.tar.gz \
     && mkdir $JBOSS_HOME/standalone/data \
     && mkdir $JBOSS_HOME/standalone/log \
+    && (EXISTING_GROUP=$(getent group 1000 | cut -d: -f1) && [ -n "$EXISTING_GROUP" ] && groupmod -g 9999 "$EXISTING_GROUP" || true) \
+    && (EXISTING_USER=$(getent passwd 1000 | cut -d: -f1) && [ -n "$EXISTING_USER" ] && usermod -u 9999 -g 9999 "$EXISTING_USER" || true) \
     && groupadd -r jboss -g 1000 \
     && useradd -u 1000 -r -g jboss -d $JBOSS_HOME -s /bin/false -c "WildFly user" jboss \
     && chown jboss:jboss $JAVA_HOME/lib/security/cacerts \
