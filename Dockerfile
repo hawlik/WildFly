@@ -2,8 +2,8 @@ FROM eclipse-temurin:21-jdk
 
 MAINTAINER Tomasz Hawliczek <thawliczek@gmail.com>
 
-ENV WILDFLY_VERSION  26.1.3.Final
-ENV WILDFLY_SHA1     b9f52ba41df890e09bb141d72947d2510caf758c
+ENV WILDFLY_VERSION  37.0.1.Final
+ENV WILDFLY_SHA1     e788fbae4107f4b8bf23c701bd6a02c86a9d515c
 ENV JBOSS_HOME       /opt/wildfly
 
 ADD run.sh /
@@ -19,8 +19,8 @@ RUN cd $HOME \
     && rm wildfly-$WILDFLY_VERSION.tar.gz \
     && mkdir $JBOSS_HOME/standalone/data \
     && mkdir $JBOSS_HOME/standalone/log \
-    && groupadd -r jboss -g 433 \
-    && useradd -u 431 -r -g jboss -d $JBOSS_HOME -s /bin/false -c "WildFly user" jboss \
+    && groupadd -r jboss -g 1000 \
+    && useradd -u 1000 -r -g jboss -d $JBOSS_HOME -s /bin/false -c "WildFly user" jboss \
     && chown jboss:jboss $JAVA_HOME/lib/security/cacerts \
     && chmod +x /create_wildfly_admin_user.sh /run.sh \
     && chown -R jboss:jboss $JBOSS_HOME/
