@@ -2,8 +2,8 @@ FROM eclipse-temurin:21-jdk
 
 MAINTAINER Tomasz Hawliczek <thawliczek@gmail.com>
 
-ENV WILDFLY_VERSION  26.1.3.Final
-ENV WILDFLY_SHA1     b9f52ba41df890e09bb141d72947d2510caf758c
+ENV WILDFLY_VERSION  29.0.0.Final
+ENV WILDFLY_SHA1     73caf5b289fc94d519ba584796a1b16547428944
 ENV JBOSS_HOME       /opt/wildfly
 
 ADD run.sh /
