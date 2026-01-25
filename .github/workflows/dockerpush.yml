@@ -6,6 +6,7 @@ on:
     branches:
       - master
       - wf26-j21
+      - wf39-j21
 
     # Publish `v1.2.3` tags as releases.
     tags:
