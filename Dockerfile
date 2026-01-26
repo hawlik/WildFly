@@ -1,13 +1,15 @@
-FROM eclipse-temurin:21-jdk
+FROM eclipse-temurin:25-jdk
 
-MAINTAINER Tomasz Hawliczek <thawliczek@gmail.com>
+LABEL maintainer="Tomasz Hawliczek <thawliczek@gmail.com>"
 
-ENV WILDFLY_VERSION  39.0.0.Final
-ENV WILDFLY_SHA1     73caf5b289fc94d519ba584796a1b16547428944
-ENV JBOSS_HOME       /opt/wildfly
+ENV WILDFLY_VERSION=39.0.0.Final
+ENV WILDFLY_SHA1=73caf5b289fc94d519ba584796a1b16547428944
+ENV JBOSS_HOME=/opt/wildfly
 
 ADD run.sh /
 ADD create_wildfly_admin_user.sh /
+
+RUN apt-get update && apt-get install -y  curl
 
 # Add the WildFly distribution to /opt, and make wildfly the owner of the extracted tar content
 # Make sure the distribution is available from a well-known place
@@ -28,7 +30,7 @@ RUN cd $HOME \
     && chown -R jboss:jboss $JBOSS_HOME/
 
 # Ensure signals are forwarded to the JVM process correctly for graceful shutdown
-ENV LAUNCH_JBOSS_IN_BACKGROUND true
+ENV LAUNCH_JBOSS_IN_BACKGROUND=true
 
 EXPOSE 8080 9990 8443 9993 5005
 
